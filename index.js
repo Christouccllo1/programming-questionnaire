@@ -7,6 +7,7 @@ let port = process.env.PORT || 5001
 app.use(expressLayouts)
 app.set("view engine",".ejs")
 app.use(express.static(__dirname + "/static"))
+app.use(express.urlencoded({extended:false}))
 
 
 
@@ -20,6 +21,8 @@ app.get("/register", (req,res)=> {
     res.render("register")
 })
 
-
+app.post("/register", (req,res)=>{
+    console.log(req.body)
+})
 
 app.listen(port,()=> console.log("listening to port "+port))
