@@ -23,6 +23,7 @@ app.get("/register", (req,res)=> {
 
 app.post("/register", (req,res)=>{
     console.log(req.body)
+    res.redirect("/login")
 })
 
 app.listen(port,()=> console.log("listening to port "+port))
