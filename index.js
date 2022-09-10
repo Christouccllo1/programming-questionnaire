@@ -36,18 +36,53 @@ const connectDb = require("./database/database.js")
 connectDb();
 
 
-app.get("/",(req,res)=> res.render("home"))
-app.get("/login", (req,res)=> {
+app.get("/",checkAuthenticated,(req,res)=> res.render("home",{name:req.user.username}))
+
+
+app.get("/login",checkNotAuthenticated, (req,res)=> {
     res.render("login")
 })
 
-app.get("/register", (req,res)=> {
+app.get("/register",checkNotAuthenticated, (req,res)=> {
     res.render("register")
 })
 
-app.post("/register", (req,res)=>{
-    console.log(req.body)
-    res.redirect("/login")
+app.post("/login",checkNotAuthenticated, passport.authenticate("local",{
+    successRedirect:"/",
+    failureRedirect:"/login",
+    failureFlash:true
+}))
+
+app.post("/register",checkNotAuthenticated, async(req,res)=>{
+    try {
+        let hashedPass = await bcrypt.hash(req.body.password, 10)
+        let user = new User({
+            username: req.body.name,
+            email: req.body.email,
+            password: hashedPass
+        })
+        user.save().then(user => res.redirect("/login"))
+    } catch {
+        res.redirect("/register")
+    }
+
 })
 
+
+
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    } else {
+        res.redirect('/login')
+    }
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect("/")
+    } else {
+        return next()
+    }
+}
 app.listen(port,()=> console.log("listening to port "+port))
