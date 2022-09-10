@@ -1,6 +1,7 @@
 let express = require("express")
 let expressLayouts = require("express-ejs-layouts")
-
+const dotenv = require("dotenv")
+dotenv.config({ path: '.env' })
 let app = express()
 let port = process.env.PORT || 5001
 
@@ -9,7 +10,9 @@ app.set("view engine",".ejs")
 app.use(express.static(__dirname + "/static"))
 app.use(express.urlencoded({extended:false}))
 
+const connectDb = require("./database/database.js")
 
+connectDb();
 
 
 app.get("/",(req,res)=> res.render("home"))
