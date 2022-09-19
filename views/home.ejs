@@ -3,79 +3,116 @@
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                    Languages
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        <a href="/1" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">
+                                Javascript
+                            </span>
+
                         </a>
                     </li>
-                    <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
-                        <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1 </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2 </a>
-                            </li>
-                        </ul>
+                    <li class="nav-item">
+                        <a href="/2" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">
+                                Python
+                            </span>
+
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                    <li class="nav-item">
+                        <a href="/3" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">
+                                Java
+                            </span>
+
+                        </a>
                     </li>
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Item</span> 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
-                            <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 2</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 3</a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Product</span> 4</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
-                    </li>
+
                 </ul>
                 <hr>
-                
+
             </div>
         </div>
         <div class="col py-3">
-            Content area...
+
+            <div>
+                <% for(var i=0; i < questions.length; i++) { %>
+                    <div class="card">
+                        <h5 class="card-header">Question
+                            <%=i+1%>
+                        </h5>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= questions[i].question%>
+                            </h5>
+                            <p class="card-text">
+                                <%= questions[i].Answer%>
+                            </p>
+                            <p class="card-text">
+                                Created by :
+                                <%= questions[i].username%>
+                            </p>
+
+
+                            <a href="/deletequest/<%=questions[i]._id%>" class="btn btn-primary">delete</a>
+                        </div>
+                    </div>
+                    <h4>
+
+                    </h4>
+                    <% } %>
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+                    Add Question
+                </button>
+            </div>
+
+
+            <div class="collapse" id="collapseForm">
+                <div class="card card-body bg-transparent">
+                    <form action="/question" method="POST" class="forms">
+                        <div class="mb-3">
+                            <label for="quest" class="form-label">Question</label>
+                            <input type="text" class="form-control" id="quest" name="quest" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ans" class="form-label">Answer</label>
+                            <input type="text" class="form-control" id="ans" name="ans" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Choose Category</label>
+                            <select class="form-select" aria-label="Default select example" id="category" name="category">
+                                <option selected>Open this select menu</option>
+                                <option value="1">Javascript</option>
+                                <option value="2">Python</option>
+                                <option value="3">Java</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="hidden" class="form-control" value="<%= email %>" id="user" name="user" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add Question</button>
+                    </form>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
 </div>
 
-<%- contentFor("links")%>
-<form class="d-flex mx-3" action="/logout?_method=DELETE" method="POST">
-    <button class="btn btn-outline-success" type="submit">Logout</button>
-</form>
-<h4 class="text-center name mx-3">Welcome
-    <%= name %>
-</h4>
+<%- contentFor('links') %>
+    <form class="d-flex mx-3" action="/logout?_method=DELETE" method="POST">
+        <button class="btn btn-outline-success" type="submit">Logout</button>
+    </form>
+    <h4 class="text-center">Welcome
+        <%=name%>
+    </h4>
