@@ -1,0 +1,16 @@
+<div class="container">
+    <h1 style="color: red;">
+        <%= message %>
+    </h1>
+
+    <a href="/" class="Go Back">Go Back</a>
+</div>
+
+
+<%- contentFor('links') %>
+    <form class="d-flex mx-3" action="/logout?_method=DELETE" method="POST">
+        <button class="btn btn-outline-success" type="submit">Logout</button>
+    </form>
+    <h4 class="text-center name mx-3">Welcome
+        <%= name %>
+    </h4>
